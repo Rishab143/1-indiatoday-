@@ -1,0 +1,24 @@
+import requests
+import tkinter
+from tkinter import *
+import re
+from bs4 import BeautifulSoup
+
+page=requests.get("https://www.indiatoday.in/")
+soup=BeautifulSoup(page.content,'html.parser')
+
+div=soup.find(class_="widget-wrapper top_stories_ordering")
+title=div.find(class_="widget-title").get_text()
+title.capitalize()
+a=list()
+a=div.findAll('a')
+top = tkinter.Tk(className=title)
+top.geometry("400x100")
+Lb = Listbox(top,width='400',height='700')
+i=1
+for b in a:
+    Lb.insert(i, b.get_text())
+    print('\n')
+    i=i+1
+Lb.pack()
+top.mainloop()
